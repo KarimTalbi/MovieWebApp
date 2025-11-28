@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <ol class="movie-grid">
+        {% if movies %}
+            {% for movie in movies %}
+                <li>
+                    <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="movie-link">
+                        <div class="movie">
+                            <div class="movie-title">{{ movie.title }}</div>
+                            <div class="movie-info">
+                                <div class="movie-year">{{ movie.release_year }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No Movies found.</li>
+        {% endif %}
+    </ol>
+{% endblock %}

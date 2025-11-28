@@ -17,31 +17,12 @@ class UserManager:
         users = db.session.execute(
             db.select(User)
         ).scalars()
-        return users.all()
+        return users
 
     @staticmethod
     def add(name: str) -> None:
         user = User(name=name)
         db.session.add(user)
-        db.session.commit()
-
-    @staticmethod
-    def delete(user_id: int) -> None:
-        user = db.session.execute(
-            db.select(User).filter_by(id=user_id)
-        ).scalar()
-
-        db.session.delete(user)
-        db.session.commit()
-
-
-    @staticmethod
-    def update(user_id: int, new_name: str) -> None:
-        user = db.session.execute(
-            db.select(User).filter_by(id=user_id)
-        ).scalar()
-
-        user.name = new_name
         db.session.commit()
 
 
@@ -59,7 +40,7 @@ class MovieManager:
         movies = db.session.execute(
             db.select(Movie).filter_by(user_id=user_id)
         ).scalars()
-        return movies.all()
+        return movies
 
     @staticmethod
     def add(title: str, user_id: int) -> None:
