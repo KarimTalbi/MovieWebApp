@@ -7,4 +7,4 @@ class User(db.Model):
     name = db.Column(db.String(128))
 
     def __repr__(self):
-        return f"<User {self.name}> <id {self.id}>"
+        return f"User: {self.name} - id: {self.id}"

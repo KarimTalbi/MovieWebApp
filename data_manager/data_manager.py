@@ -1,81 +1,88 @@
-from sqlalchemy import ScalarResult, Row, Sequence
+from sqlalchemy import Sequence
 from models import db, Movie, User
-from omdb import Omdb
+from .omdb import Omdb
 
 
-class Manager:
+class UserManager:
 
     @staticmethod
-    def _get(model: db.Model, model_id: int) -> ScalarResult:
-        return db.session.execute(
-            db.select(model).filter_by(id=model_id)
+    def get(user_id: int) -> User:
+        user = db.session.execute(
+            db.select(User).filter_by(id=user_id)
         ).scalar()
+        return user
 
     @staticmethod
-    def _add(model: db.Model) -> None:
-        db.session.add(model)
-        db.session.commit()
-
-    @staticmethod
-    def _delete(model: db.Model) -> None:
-        db.session.delete(model)
-        db.session.commit()
-
-    @staticmethod
-    def _update(model: db.Model, new_name: str) -> None:
-        model.name = new_name
-        db.session.commit()
-
-
-class UserManager(Manager):
-
-    def get(self, user_id: int) -> Row:
-        return self._get(User, user_id).one()
-
-    @staticmethod
-    def get_all() -> Sequence[Row]:
+    def get_all() -> Sequence[User]:
         users = db.session.execute(
             db.select(User)
         ).scalars()
         return users.all()
 
-    def add(self, name: str) -> None:
-        self._add(User(name=name))
-
-    def delete(self, user_id: int) -> None:
-        user = self.get(user_id)
-        self._delete(user)
-
-    def update(self, user_id: int, new_name: str) -> None:
-        user = self._get(User, user_id)
-        self._update(user, new_name)
-
-
-class MovieManager(Manager):
-
-    def get(self, movie_id: int) -> Row:
-        return self._get(Movie, movie_id).one()
+    @staticmethod
+    def add(name: str) -> None:
+        user = User(name=name)
+        db.session.add(user)
+        db.session.commit()
 
     @staticmethod
-    def get_all(user_id: int) -> Sequence[Row]:
+    def delete(user_id: int) -> None:
+        user = db.session.execute(
+            db.select(User).filter_by(id=user_id)
+        ).scalar()
+
+        db.session.delete(user)
+        db.session.commit()
+
+
+    @staticmethod
+    def update(user_id: int, new_name: str) -> None:
+        user = db.session.execute(
+            db.select(User).filter_by(id=user_id)
+        ).scalar()
+
+        user.name = new_name
+        db.session.commit()
+
+
+class MovieManager:
+
+    @staticmethod
+    def get(movie_id: int) -> Movie:
+        movie = db.session.execute(
+            db.select(Movie).filter_by(id=movie_id)
+        ).scalar()
+        return movie
+
+    @staticmethod
+    def get_all(user_id: int) -> Sequence[Movie]:
         movies = db.session.execute(
             db.select(Movie).filter_by(user_id=user_id)
         ).scalars()
         return movies.all()
 
-    def add(self, title: str, user_id: int) -> None:
+    @staticmethod
+    def add(title: str, user_id: int) -> None:
         movie = Omdb(title=title).movie()
         movie.user_id = user_id
-        self._add(movie)
+        db.session.add(movie)
+        db.session.commit()
 
-    def delete(self, movie_id: int) -> None:
-        movie = self._get(Movie, movie_id)
-        self._delete(movie)
+    @staticmethod
+    def delete(movie_id: int) -> None:
+        movie = db.session.execute(
+            db.select(Movie).filter_by(id=movie_id)
+        ).scalar()
+        db.session.delete(movie)
+        db.session.commit()
 
-    def update(self, movie_id: int, new_title: str) -> None:
-        movie = self._get(Movie, movie_id)
-        self._update(movie, new_title)
-
+    @staticmethod
+    def update(movie_id: int, new_title: str) -> None:
+        movie = db.session.execute(
+            db.select(Movie).filter_by(id=movie_id)
+        ).scalar()
+        movie.title = new_title
+        db.session.commit()
 
 class DataManager:
     user = UserManager()
