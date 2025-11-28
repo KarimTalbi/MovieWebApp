@@ -2,9 +2,10 @@ import requests
 import dotenv
 import os
 
-from movies.models import Movie
+from models import Movie
 
 dotenv.load_dotenv()
+
 
 class Omdb:
     __URL = f"http://www.omdbapi.com/?apikey={os.getenv("OMDB_API_KEY")}&"
