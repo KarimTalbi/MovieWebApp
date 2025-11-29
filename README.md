@@ -23,7 +23,7 @@ This project is a simple movie web application, part of the MSIT curriculum.
     
     ```bash
     python -m venv .venv
-    source .venv/bin/activate  # On Windows, use `.venvScriptsactivate`
+    source .venv/bin/activate  # On Windows, use .venvScriptsactivate
     ```
     
 3.  **Install the dependencies:**
