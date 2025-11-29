@@ -45,9 +45,9 @@ class Omdb:
 
         self.__movie = Movie(
             title=self._movie_data.get('Title'),
-            release_year=int(self._movie_data.get('Released')[-4:]),
+            release_year=self._movie_data.get('Released')[-4:],
             rated=self._movie_data.get('Rated'),
-            rating=float(self._movie_data.get('imdbRating')),
+            rating=self._movie_data.get('imdbRating'),
             runtime=self._movie_data.get('Runtime'),
             genre=self._movie_data.get('Genre'),
             director=self._movie_data.get('Director'),

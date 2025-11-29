@@ -29,9 +29,9 @@ class Movie(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
-    release_year = db.Column(db.Integer)
+    release_year = db.Column(db.String(12))
     rated = db.Column(db.String(16))
-    rating = db.Column(db.Float)
+    rating = db.Column(db.String(12))
     runtime = db.Column(db.String(16))
     genre = db.Column(db.String(128))
     director = db.Column(db.String(128))

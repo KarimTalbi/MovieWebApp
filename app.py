@@ -265,37 +265,6 @@ def bad_request(e) -> (
     return temp, 400
 
 
-@app.errorhandler(BadRequest)
-def bad_request_error(e) -> (
-        tuple[RenderedPage, ResponseCode]
-):
-    """
-    Renders the 400 error page for BadRequest exceptions.
-
-    Args:
-        e: The error object.
-
-    Returns:
-        A tuple containing the rendered error template and the 400 status code.
-    """
-    temp = render_template(
-        template_name_or_list='error.html',
-        error_description=e.description
-    )
-    return temp, 400
-
-
-@app.errorhandler(ValueError)
-def value_error(e) -> (
-        tuple[RenderedPage, ResponseCode]
-):
-    temp = render_template(
-        template_name_or_list='error.html',
-        error_description=e.description
-    )
-    return temp, 500
-
-
 @app.errorhandler(500)
 def internal_server_error(e) -> (
         tuple[RenderedPage, ResponseCode]
@@ -316,128 +285,20 @@ def internal_server_error(e) -> (
     return temp, 500
 
 
-@app.errorhandler(SQLAlchemyError)
-def database_error(e) -> (
+@app.errorhandler(Exception)
+def unhandled_exception(e) -> (
         tuple[RenderedPage, ResponseCode]
 ):
-    """
-    Renders the 500 error page for database errors.
-
-    Args:
-        e: The error object.
-
-    Returns:
-        A tuple containing the rendered error template and the 500 status code.
-    """
     temp = render_template(
         template_name_or_list='error.html',
         error_description=e.args[0]
     )
     return temp, 500
-
-
-@app.errorhandler(MovieApiError)
-def movie_api_error(e) -> (
-        tuple[RenderedPage, ResponseCode]
-):
-    """
-    Renders the 500 error page for movie API errors.
-
-    Args:
-        e: The error object.
-
-    Returns:
-        A tuple containing the rendered error template and the 500 status code.
-    """
-    temp = render_template(
-        template_name_or_list='error.html',
-        error_description=e.args[0]
-    )
-    return temp, 500
-
-
-@app.errorhandler(UserNotFoundError)
-def user_not_found_error(e) -> (
-        tuple[RenderedPage, ResponseCode]
-):
-    """
-    Renders the 404 error page when a user is not found.
-
-    Args:
-        e: The error object.
-
-    Returns:
-        A tuple containing the rendered error template and the 404 status code.
-    """
-    temp = render_template(
-        template_name_or_list='error.html',
-        error_description=e.args[0]
-    )
-    return temp, 404
-
-
-@app.errorhandler(MovieNotFoundError)
-def movie_not_found_error(e) -> (
-        tuple[RenderedPage, ResponseCode]
-):
-    """
-    Renders the 404 error page when a movie is not found.
-
-    Args:
-        e: The error object.
-
-    Returns:
-        A tuple containing the rendered error template and the 404 status code.
-    """
-    temp = render_template(
-        template_name_or_list='error.html',
-        error_description=e.args[0]
-    )
-    return temp, 404
-
-
-@app.errorhandler(InvalidUserName)
-def invalid_user_name(e) -> (
-        tuple[RenderedPage, ResponseCode]
-):
-    """
-    Renders the 400 error page for invalid usernames.
-
-    Args:
-        e: The error object.
-
-    Returns:
-        A tuple containing the rendered error template and the 400 status code.
-    """
-    temp = render_template(
-        template_name_or_list='error.html',
-        error_description=e.args[0]
-    )
-    return temp, 400
-
-
-@app.errorhandler(InvalidMovieTitle)
-def invalid_movie_title(e) -> (
-        tuple[RenderedPage, ResponseCode]
-):
-    """
-    Renders the 400 error page for invalid movie titles.
-
-    Args:
-        e: The error object.
-
-    Returns:
-        A tuple containing the rendered error template and the 400 status code.
-    """
-    temp = render_template(
-        template_name_or_list='error.html',
-        error_description=e.args[0]
-    )
-    return temp, 400
 
 
 if __name__ == '__main__':
     with app.app_context():
+        db.drop_all()
         db.create_all()
 
     app.run(debug=True)
