@@ -6,7 +6,7 @@ Update, Delete) operations. It also defines custom exceptions for data-related e
 """
 from sqlalchemy import Sequence
 from models import db, Movie, User
-from .omdb import Omdb, MovieApiError
+from .omdb import Omdb
 
 
 class UserNotFoundError(Exception):
