@@ -390,7 +390,7 @@ def invalid_user_name(e) -> (
         tuple[RenderedPage, ResponseCode]
 ):
     """
-    Renders the 400 error page for invalid user names.
+    Renders the 400 error page for invalid usernames.
 
     Args:
         e: The error object.
