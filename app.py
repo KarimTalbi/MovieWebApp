@@ -7,10 +7,6 @@ The application uses SQLAlchemy for database interactions and handles various er
 from os.path import join
 from pathlib import Path
 from flask import Flask, request, render_template, Response
-from sqlalchemy.exc import SQLAlchemyError
-from werkzeug.exceptions import BadRequest
-
-from data_manager import MovieNotFoundError, InvalidUserName, UserNotFoundError, InvalidMovieTitle, MovieApiError
 from models import db
 from core import Post, Get, RenderedPage
 
