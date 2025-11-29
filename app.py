@@ -285,6 +285,17 @@ def bad_request_error(e) -> (
     return temp, 400
 
 
+@app.errorhandler(ValueError)
+def value_error(e) -> (
+        tuple[RenderedPage, ResponseCode]
+):
+    temp = render_template(
+        template_name_or_list='error.html',
+        error_description=e.description
+    )
+    return temp, 500
+
+
 @app.errorhandler(500)
 def internal_server_error(e) -> (
         tuple[RenderedPage, ResponseCode]
@@ -426,7 +437,6 @@ def invalid_movie_title(e) -> (
 
 
 if __name__ == '__main__':
-
     with app.app_context():
         db.create_all()
 
