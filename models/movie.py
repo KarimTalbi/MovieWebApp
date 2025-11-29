@@ -19,4 +19,4 @@ class Movie(db.Model):
     user = db.relationship('User', backref=db.backref('movies', lazy=True))
 
     def __repr__(self):
-        return f"<Movie {self.title}> <id {self.id}>"
+        return f"Movie. {self.title} - ID: {self.id}"

@@ -1,13 +1,14 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, Response
 from data_manager import DataManager
 
 DM = DataManager()
+RenderedPage = str
 
 
 class UserPost:
 
     @staticmethod
-    def add():
+    def add() -> Response:
         user = DM.user.add(
             name=request.form.get('username')
         )
@@ -17,7 +18,7 @@ class UserPost:
         return resp
 
     @staticmethod
-    def update(user_id):
+    def update(user_id: int) -> Response:
         DM.user.update(
             user_id=user_id, new_name=request.form.get('username')
         )
@@ -30,7 +31,7 @@ class UserPost:
 class MoviePost:
 
     @staticmethod
-    def add(user_id):
+    def add(user_id: int) -> Response:
         movie = DM.movie.add(
             title=request.form.get('title'),
             user_id=user_id
@@ -43,7 +44,7 @@ class MoviePost:
         return resp
 
     @staticmethod
-    def delete(user_id, movie_id):
+    def delete(user_id: int, movie_id: int) -> Response:
         DM.movie.delete(movie_id)
         resp = redirect(url_for(
             endpoint='movie_list',
@@ -52,7 +53,7 @@ class MoviePost:
         return resp
 
     @staticmethod
-    def update(user_id, movie_id):
+    def update(user_id: int, movie_id: int) -> Response:
         DM.movie.update(
             movie_id=movie_id,
             new_title=request.form.get('new_title')
@@ -73,21 +74,21 @@ class Post:
 class UserGet:
 
     @staticmethod
-    def list():
+    def list() -> RenderedPage:
         temp = render_template(
             template_name_or_list='home.html', users=DM.user.get_all()
         )
         return temp
 
     @staticmethod
-    def add():
+    def add() -> RenderedPage:
         temp = render_template(
             template_name_or_list='add_user.html'
         )
         return temp
 
     @staticmethod
-    def details(user_id: int):
+    def details(user_id: int) -> RenderedPage:
         user = DM.user.get(user_id)
         temp = render_template(
             template_name_or_list='user.html',
@@ -97,7 +98,7 @@ class UserGet:
         return temp
 
     @staticmethod
-    def delete(user_id):
+    def delete(user_id: int) -> Response:
         DM.user.delete(user_id)
         resp = redirect(url_for(
             endpoint='home')
@@ -105,7 +106,7 @@ class UserGet:
         return resp
 
     @staticmethod
-    def update(user_id):
+    def update(user_id: int) -> RenderedPage:
         temp = render_template(
             template_name_or_list='update_user.html',
             user=DM.user.get(user_id)
@@ -116,7 +117,7 @@ class UserGet:
 class MovieGet:
 
     @staticmethod
-    def list(user_id):
+    def list(user_id: int) -> RenderedPage:
         user = DM.user.get(user_id)
         temp = render_template(
             template_name_or_list='movies.html',
@@ -126,7 +127,7 @@ class MovieGet:
         return temp
 
     @staticmethod
-    def details(user_id, movie_id):
+    def details(user_id: int, movie_id: int) -> RenderedPage:
         user = DM.user.get(user_id)
         movie = DM.movie.get(movie_id)
         temp = render_template(
@@ -137,7 +138,7 @@ class MovieGet:
         return temp
 
     @staticmethod
-    def add(user_id):
+    def add(user_id: int) -> RenderedPage:
         temp = render_template(
             template_name_or_list='add_movie.html',
             user=DM.user.get(user_id)
@@ -145,7 +146,7 @@ class MovieGet:
         return temp
 
     @staticmethod
-    def update(movie_id):
+    def update(movie_id: int) -> RenderedPage:
         temp = render_template(
             template_name_or_list='update_movie.html',
             movie=DM.movie.get(movie_id)

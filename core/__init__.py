@@ -1,1 +1,1 @@
-from .controllers import Post, Get
+from .controllers import Post, Get, RenderedPage

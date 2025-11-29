@@ -4,8 +4,10 @@ import os
 
 from models import Movie
 
+
 class MovieApiError(Exception):
     pass
+
 
 dotenv.load_dotenv()
 
@@ -14,7 +16,13 @@ class Omdb:
     __URL = f"http://www.omdbapi.com/?apikey={os.getenv("OMDB_API_KEY")}&"
 
     def __init__(self, title: str):
-        self._movie_data = requests.get(self.__URL, {'t': title}).json()
+
+        self._movie_data = requests.get(
+            url=self.__URL,
+            params={'t': title}
+        ).json()
+
+        self.__response = self._movie_data.get('Response')
 
         if self._movie_data.get('Response') == 'False':
             raise MovieApiError(f"No movie found with title {title}")
