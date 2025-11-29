@@ -15,9 +15,8 @@ This project is a simple movie web application, part of the MSIT curriculum.
 
 1.  **Clone the repository:**
     
-    ```bash
-    git clone <repository-url>
-    cd MovieWebApp
+    ```
+    git clone 
     ```
     
 2.  **Create a virtual environment:**
