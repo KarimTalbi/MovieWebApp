@@ -8,33 +8,37 @@ This project is a simple movie web application, part of the MSIT curriculum.
 
 ## Features
 
-*   **User Management:** Create, update, delete, and view users.
-*   **Movie Management:** Add, update, delete, and view movies for each user.
+-   **User Management:** Create, update, delete, and view users.
+-   **Movie Management:** Add, update, delete, and view movies for each user.
 
 ## Installation
 
 1.  **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd MovieWebApp
+    
     ```
-
+    git clone 
+    ```
+    
 2.  **Create a virtual environment:**
+    
     ```bash
     python -m venv .venv
-    source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
+    source .venv/bin/activate  # On Windows, use `.venvScriptsactivate`
     ```
-
+    
 3.  **Install the dependencies:**
+    
     ```bash
     pip install -r requirements.txt
     ```
+    
 
 ## Usage
 
 1.  **Run the application:**
+    
     ```bash
     python app.py
     ```
-
+    
 2.  Open your web browser and navigate to `http://127.0.0.1:5000`.
