@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Update Movie{% endblock %}
+
+{% block content %}
+    <div class="bg-gray-800/50 backdrop-blur-xl shadow-md rounded-lg p-6">
+        <h1 class="text-4xl font-bold mb-4 text-white">Update Movie</h1>
+        <form method="post">
+            <div class="mb-4">
+                <label for="new_title" class="block text-gray-400 font-bold mb-2">New Title:</label>
+                <input type="text" id="new_title" name="new_title" value="{{ movie.title }}" required
+                       class="bg-gray-700 text-white placeholder-gray-400 border border-gray-600 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md">
+                Update
+            </button>
+        </form>
+    </div>
+{% endblock %}
