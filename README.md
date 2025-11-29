@@ -16,14 +16,14 @@ This project is a simple movie web application, part of the MSIT curriculum.
 1.  **Clone the repository:**
     
     ```
-    git clone 
+    git clone https://github.com/KarimTalbi/MovieWebApp.git 
     ```
     
 2.  **Create a virtual environment:**
     
     ```bash
     python -m venv .venv
-    source .venv/bin/activate  # On Windows, use .venvScriptsactivate
+    source .venv/bin/activate  # On Windows, use .venv\Scripts\activate
     ```
     
 3.  **Install the dependencies:**
