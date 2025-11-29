@@ -15,8 +15,9 @@ This project is a simple movie web application, part of the MSIT curriculum.
 
 1.  **Clone the repository:**
     
-    ```
-    git clone 
+    ```bash
+    git clone <repository-url>
+    cd MovieWebApp
     ```
     
 2.  **Create a virtual environment:**
@@ -31,6 +32,14 @@ This project is a simple movie web application, part of the MSIT curriculum.
     ```bash
     pip install -r requirements.txt
     ```
+    
+4.  **Set up the environment variables:** Create a `.env` file in the root directory of the project and add your OMDB API key:
+    
+    ```
+    OMDB_API_KEY=your_api_key
+    ```
+    
+    You can get an API key from [http://www.omdbapi.com/apikey.aspx](http://www.omdbapi.com/apikey.aspx).
     
 
 ## Usage
